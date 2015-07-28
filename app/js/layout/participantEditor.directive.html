@@ -1,0 +1,23 @@
+<div>
+  <cdr-search-button></cdr-search-button>
+  <participant-filter on-participant-select="vmodel.selectParticipant(participantId)"></participant-filter>
+
+  <hr/>
+
+  <div ng-show="!vmodel.currentParticipant || vmodel.loadingParticipant">
+    <div ng-show="vmodel.loadingParticipant" class="text-center">
+      <h4>Loading...</h4>
+      <i class="fa fa-spinner fa-pulse fa-5x"></i>
+    </div>
+    <div ng-hide="vmodel.loadingParticipant" class="text-center">
+      <h4>Please select a participant...</h4>
+      <i class="fa fa-rocket fa-5x"></i>
+    </div>
+  </div>
+
+  <div ng-hide="!vmodel.currentParticipant || vmodel.loadingParticipant">
+    <participant-record participant="vmodel.currentParticipant"></participant-record>
+  </div>
+
+  <hr/>
+</div>
