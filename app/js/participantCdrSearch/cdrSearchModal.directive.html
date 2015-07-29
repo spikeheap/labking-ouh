@@ -1,15 +1,48 @@
 <div class="modal-header">
-  <h3 class="modal-title">I'm a modal!</h3>
+  <h3 class="modal-title">Add a new participant</h3>
 </div>
 <div class="modal-body">
-  <ul>
-    <li ng-repeat="item in items">
-      <a ng-click="selected.item = item">{{ item }}</a>
-    </li>
-  </ul>
-  Selected: <b>{{ selected.item }}</b>
+  <div ng-show="vm.formStep == vm.FORM_STEPS.ENTRY">
+    <form class="form-horizontal" role="form">
+      <div class="form-group" ng-repeat="field in vm.formFields">
+        <label for="{{field.name}}" class="col-sm-2 control-label" ng-bind="field.label"></label>
+        <div class="col-sm-4">
+          <input class="form-control" id="{{field.name}}" placeholder="{{field.placeholder}}" ng-model="formInfo[field.name]">
+        </div>
+      </div>
+
+      <span>{{formInfo}}</span>
+    </form>
+  </div>
+
+  <div ng-show="vm.formStep === vm.FORM_STEPS.LOADING" class="text-center">
+    <h4>Searching...</h4>
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+
+  <div ng-show="vm.formStep === vm.FORM_STEPS.RESULTS">
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th class="col-xs-1" ng-repeat="field in vm.searchResultFields" ng-bind="vm.getFieldLabel(field)"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr dir-paginate="record in vm.results | itemsPerPage: 10"
+            ng-class="{'list-group-item-info': vm.selectedRecord === record}"
+            ng-click="vm.selectRecord(record)"
+            role="button">
+          <td ng-repeat="fieldName in vm.searchResultFields" ng-bind="record[fieldName]"></td>
+        </tr>
+      </tbody>
+    </table>
+    <dir-pagination-controls></dir-pagination-controls>
+  </div>
 </div>
 <div class="modal-footer">
-  <button class="btn btn-primary" ng-click="ok()">OK</button>
-  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  <button class="btn btn-default pull-left" ng-click="vm.formStep = vm.FORM_STEPS.ENTRY" ng-if="vm.formStep == vm.FORM_STEPS.RESULTS"><i class="fa fa-long-arrow-left"></i> Go back</button>
+  <button class="btn btn-primary" ng-click="vm.search(formInfo)" ng-if="vm.formStep == vm.FORM_STEPS.ENTRY">Search</button>
+  <button class="btn btn-success" ng-click="ok()" ng-if="vm.formStep == vm.FORM_STEPS.RESULTS" ng-disabled="!vm.selectedRecord">Create</button>
+
+  <button class="btn btn-default" ng-click="cancel()">Cancel</button>
 </div>
