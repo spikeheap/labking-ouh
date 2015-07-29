@@ -1,0 +1,8 @@
+<ns:tables xmlns:ns="http://labkey.org/data/xml">
+  <ns:table tableDbType="TABLE" tableName="preferences">
+    <ns:columns>
+      <ns:column columnName="pref_id"/>
+      <ns:column columnName="value"/>
+    </ns:columns>
+  </ns:table>
+</ns:tables>
