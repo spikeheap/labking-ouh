@@ -9,10 +9,11 @@ var moduleName = 'ouh.labking.core';
 require('angular')
   .module(moduleName, [
       'ui.router',
-      'toastr'
+      'toastr',
+      'labking'
   ])
   .value('config', config.config)
-  // .config(config.configure)
+  .config(config.configure)
   //.config(config.toastrConfig)
 ;
 

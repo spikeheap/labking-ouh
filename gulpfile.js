@@ -7,6 +7,14 @@ var project = require('./package.json'),
 var buildRoot = path.join(__dirname, 'dist', project.name);
 var buildWebPath = path.join(buildRoot, 'web', project.name);
 var config = {
+  'queries': {
+    'src'  : 'app/queries/**/*',
+    'dest': path.join(buildRoot, 'queries'),
+  },
+  'schemas': {
+    'src'  : 'app/schemas/**/*',
+    'dest': path.join(buildRoot, 'schemas'),
+  },
   'scripts': {
     'src'  : './js/**/*(!spec).js',
     'dest': path.join(buildWebPath, 'js'),
@@ -123,6 +131,18 @@ gulp.task('fonts', function() {
     .pipe(gulp.dest(config.fonts.dest));
 });
 
+// Schemas
+gulp.task('schemas', function() {
+  return gulp.src(config.schemas.src)
+    .pipe(gulp.dest(config.schemas.dest));
+});
+
+// Queries
+gulp.task('queries', function() {
+  return gulp.src(config.queries.src)
+    .pipe(gulp.dest(config.queries.dest));
+});
+
 gulp.task('scripts:test', function (done) {
   karma.start({
     configFile: __dirname + '/karma.conf.js',
@@ -186,6 +206,8 @@ gulp.task('build:develop', function() {
   gulp.start(
     'fonts',
     'labkey:module',
+    'schemas',
+    'queries',
     'styles',
     'scripts:compile',
     'scripts:validate',
@@ -197,6 +219,8 @@ gulp.task('build:optimised', function() {
   gulp.start(
     'fonts',
     'labkey:module',
+    'schemas',
+    'queries',
     'scripts:validate',
     'useref'
   );

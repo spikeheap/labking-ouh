@@ -6,5 +6,5 @@ CREATE SCHEMA labking_ouh;
 CREATE TABLE labking_ouh."preferences"
 (
     "pref_id" VARCHAR(10) NOT NULL,
-    "pref_id" VARCHAR(255) NOT NULL,
+    "value" VARCHAR(255) NOT NULL
 );

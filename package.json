@@ -1,6 +1,6 @@
 {
   "name": "labking_ouh",
-  "version": "1.0.0",
+  "version": "2.00",
   "description": "LabKing, customised for Oxford University Hospitals",
   "main": "index.js",
   "scripts": {
